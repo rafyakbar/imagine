@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     HomeFragment homeFragment;
     SearchFragment searchFragment;
+    IdeaFragment ideaFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout, searchFragment).commit();
                     return true;
                 case R.id.navigation_idea:
-
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout, ideaFragment).commit();
                     return true;
                 case R.id.navigation_friends:
 
@@ -58,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
+        ideaFragment = new IdeaFragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout, homeFragment).commit();
     }
 }
 
