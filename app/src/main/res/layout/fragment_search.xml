@@ -1,0 +1,33 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.majapahit.imagine.SearchFragment">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <!-- menampilkan widget searchview -->
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:padding="2dp"
+            android:queryHint="Find tag here..."
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2.5dp"/>
+
+        <!-- menampilkan listview -->
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+
+    </LinearLayout>
+
+</FrameLayout>
