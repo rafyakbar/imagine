@@ -24,13 +24,25 @@ public class DataHelper extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
         String sql = "" +
                 "CREATE TABLE setting(" +
-                "id int, " +
-                "name text null, " +
-                "email null, " +
-                "password text null, " +
-                "location text null, " +
-                "about text null);";
+                "name TEXT UNIQUE, " +
+                "value TEXT NULL" +
+                ");";
         Log.d("Data", "onCreate: " + sql);
+        db.execSQL(sql);
+
+        sql = "INSERT INTO setting(name) VALUES('id');";
+        db.execSQL(sql);
+
+        sql = "INSERT INTO setting(name) VALUES('name');";
+        db.execSQL(sql);
+
+        sql = "INSERT INTO setting(name) VALUES('email');";
+        db.execSQL(sql);
+
+        sql = "INSERT INTO setting(name) VALUES('about');";
+        db.execSQL(sql);
+
+        sql = "INSERT INTO setting(name) VALUES('location');";
         db.execSQL(sql);
     }
 

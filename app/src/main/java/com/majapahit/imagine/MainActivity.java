@@ -3,6 +3,7 @@ package com.majapahit.imagine;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -17,6 +18,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    DataHelper dataHelper;
+    SQLiteDatabase db;
     Random r = new Random();
 
     HomeFragment homeFragment;
@@ -57,9 +60,14 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        dataHelper = new DataHelper(getApplicationContext());
+        db = dataHelper.getReadableDatabase();
+
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
         ideaFragment = new IdeaFragment();
+
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout, homeFragment).commit();
     }
