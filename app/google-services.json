@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "243668276026",
+    "firebase_url": "https://imagine-928e7.firebaseio.com",
+    "project_id": "imagine-928e7",
+    "storage_bucket": "imagine-928e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243668276026:android:dc22fad2dc7c56a4",
+        "android_client_info": {
+          "package_name": "com.majapahit.imagine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243668276026-jadls91durl7p9v00kh1q59nlaoq9l26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.majapahit.imagine",
+            "certificate_hash": "49ad88f89b3835fe1892f1344ba1609c0dc774d7"
+          }
+        },
+        {
+          "client_id": "243668276026-gvg37ntude9s2jvibbkgpmjbh1dj9vbj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWFtAB3b_orqAxDi_EaRDhMF_HbMdLCvQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243668276026-gvg37ntude9s2jvibbkgpmjbh1dj9vbj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
