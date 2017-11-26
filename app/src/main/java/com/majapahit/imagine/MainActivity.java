@@ -1,18 +1,13 @@
 package com.majapahit.imagine;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.SearchView;
-import android.widget.Toast;
+
+import com.majapahit.imagine.util.DataHelper;
 
 import java.util.Random;
 
@@ -25,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment;
     SearchFragment searchFragment;
     IdeaFragment ideaFragment;
+    FriendFragment friendFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout, ideaFragment).commit();
                     return true;
                 case R.id.navigation_friends:
-
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout, friendFragment).commit();
                     return true;
                 case R.id.navigation_setting:
 
@@ -62,12 +58,23 @@ public class MainActivity extends AppCompatActivity {
 
         dataHelper = new DataHelper(getApplicationContext());
         db = dataHelper.getReadableDatabase();
+        initializeView();
+//        if (SettingModel.checkLoginOrRegister(db)){
+//            initializeView();
+//        }
+//        else {
+//            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+//            this.finish();
+//        }
+    }
 
+    private void initializeView(){
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
         ideaFragment = new IdeaFragment();
-
-
+        friendFragment = new FriendFragment();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout, homeFragment).commit();
     }

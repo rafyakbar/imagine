@@ -92,10 +92,10 @@ public class SearchFragment extends Fragment {
 
         for (String countryCode : locales) {
             Locale obj = new Locale("", countryCode);
-            tags.add(obj.getDisplayCountry());
+            tags.add("#" + obj.getDisplayCountry());
         }
 
-        adapter = new ArrayAdapter<String>(getActivity(), R.layout.tag_list, R.id.name, tags);
+        adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_tag, R.id.name, tags);
 
         listView.setAdapter(adapter);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

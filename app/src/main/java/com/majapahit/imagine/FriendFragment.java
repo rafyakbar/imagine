@@ -1,32 +1,38 @@
 package com.majapahit.imagine;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ListView;
 
-import java.util.Random;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.majapahit.imagine.util.FriendListAdapter;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
+ * {@link FriendFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link FriendFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class FriendFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,12 +45,8 @@ public class HomeFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private View view;
-    private Random random = new Random();
 
-    private LinearLayout leftLayout;
-    private LinearLayout rightLayout;
-
-    public HomeFragment() {
+    public FriendFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +56,11 @@ public class HomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment FriendFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static FriendFragment newInstance(String param1, String param2) {
+        FriendFragment fragment = new FriendFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,52 +81,40 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-        leftLayout = view.findViewById(R.id.layout_left);
-        rightLayout = view.findViewById(R.id.layout_right);
+        view = inflater.inflate(R.layout.fragment_friend, container, false);
 
-        fakerCardView(20);
+        FriendListAdapter friendListAdapter = new FriendListAdapter(getActivity(), getImage(), getName(), getAbout());
+        ListView listView = view.findViewById(R.id.friend_listview);
+        listView.setAdapter(friendListAdapter);
 
         return view;
     }
 
-    public void fakerCardView(int count){
-        for (int c = 1; c <= count; c++){
-            if (c % 2 == 0){
-                leftLayout.addView(createCardView("Ini CardView " + c, c));
-            }
-            else {
-                rightLayout.addView(createCardView("Ini CardView " + c, c));
-            }
+    private ArrayList<String> getName(){
+        ArrayList<String> nameList = new ArrayList<>();
+        for (int c = 1; c <= 25; c++){
+            nameList.add("Nama Pengguna " + c);
         }
+
+        return nameList;
     }
 
-    private CardView createCardView(String text, int count) {
-        LinearLayout.LayoutParams cardlayoutparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, random.nextInt(500) + 500){
-        };
-        if (count % 2 == 0)
-            cardlayoutparams.setMargins(30, 30, 15, 0);
-        else
-            cardlayoutparams.setMargins(15, 30, 30, 0);
+    private ArrayList<String> getAbout(){
+        ArrayList<String> aboutList = new ArrayList<>();
+        for (int c = 1; c <= 25; c++){
+            aboutList.add("Ini adalah deskripsi pengguna ke- " + c);
+        }
 
-        CardView card = new CardView(getContext());
-        card.setLayoutParams(cardlayoutparams);
-        card.setRadius(9);
-        card.setContentPadding(25, 25, 25, 25);
-        card.setCardBackgroundColor(Color.LTGRAY);
-        card.setMaxCardElevation(15);
-        card.setCardElevation(9);
+        return aboutList;
+    }
 
-        TextView tv = new TextView(getContext());
-        tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        tv.setText(text + count);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-        tv.setTextColor(Color.RED);
-        tv.setGravity(Gravity.CENTER);
+    private ArrayList<StorageReference> getImage(){
+        final ArrayList<StorageReference> imageList = new ArrayList<>();
+        for (int c = 1; c <= 25; c++){
+             imageList.add(FirebaseStorage.getInstance().getReference().child("images/pic.jpg"));
+        }
 
-        card.addView(tv);
-
-        return card;
+        return imageList;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -142,7 +132,6 @@ public class HomeFragment extends Fragment {
         } else {
 //            throw new RuntimeException(context.toString()
 //                    + " must implement OnFragmentInteractionListener");
-//            Toast.makeText(context, "masuk", Toast.LENGTH_SHORT).show();
         }
     }
 

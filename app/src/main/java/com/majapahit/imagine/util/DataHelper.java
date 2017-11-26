@@ -1,4 +1,4 @@
-package com.majapahit.imagine;
+package com.majapahit.imagine.util;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,19 +30,19 @@ public class DataHelper extends SQLiteOpenHelper {
         Log.d("Data", "onCreate: " + sql);
         db.execSQL(sql);
 
-        sql = "INSERT INTO setting(name) VALUES('id');";
+        sql = "INSERT INTO setting(name, value) VALUES('id', '-');";
         db.execSQL(sql);
 
-        sql = "INSERT INTO setting(name) VALUES('name');";
+        sql = "INSERT INTO setting(name, value) VALUES('name', '-');";
         db.execSQL(sql);
 
-        sql = "INSERT INTO setting(name) VALUES('email');";
+        sql = "INSERT INTO setting(name, value) VALUES('email', '-');";
         db.execSQL(sql);
 
-        sql = "INSERT INTO setting(name) VALUES('about');";
+        sql = "INSERT INTO setting(name, value) VALUES('about', '-');";
         db.execSQL(sql);
 
-        sql = "INSERT INTO setting(name) VALUES('location');";
+        sql = "INSERT INTO setting(name, value) VALUES('location', '-');";
         db.execSQL(sql);
     }
 
