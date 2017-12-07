@@ -44,6 +44,9 @@ public class DataHelper extends SQLiteOpenHelper {
 
         sql = "INSERT INTO setting(name, value) VALUES('location', '-');";
         db.execSQL(sql);
+
+        sql = "INSERT INTO setting(name, value) VALUES('dir', '-');";
+        db.execSQL(sql);
     }
 
     @Override

@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.majapahit.imagine.FriendFragment">
+    tools:context="com.majapahit.imagine.FriendFragment"
+    android:paddingBottom="57dp">
 
     <!-- TODO: Update blank fragment layout -->
 

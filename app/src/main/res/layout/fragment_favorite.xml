@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.majapahit.imagine.HomeFragment"
-    android:paddingBottom="60dp">
+    tools:context="com.majapahit.imagine.FavoriteFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,10 +13,11 @@
             android:id="@+id/mainlayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="75dp">
 
             <LinearLayout
-                android:id="@+id/layout_left"
+                android:id="@+id/layout_left_favorite"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -26,7 +26,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_right"
+                android:id="@+id/layout_right_favorite"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"

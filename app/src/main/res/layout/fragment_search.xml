@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.majapahit.imagine.SearchFragment">
+    tools:context="com.majapahit.imagine.SearchFragment"
+    android:paddingBottom="57dp">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
