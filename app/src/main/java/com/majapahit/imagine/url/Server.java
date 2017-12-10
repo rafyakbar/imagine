@@ -8,5 +8,6 @@ import com.google.firebase.storage.StorageReference;
 
 public class Server {
     public static final String SIGNUP_URL = "http://imaginesystem.herokuapp.com/signup/";
-    //public static final String SIGNUP_URL = "http://192.168.43.197/imagine/public/signup/";
+
+    public static final String SIGNIN_URL = "http://imaginesystem.herokuapp.com/signin/";
 }
