@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
 //        initializeView();
         if (SettingModel.checkLoginOrRegister(db)){
             initializeView();
-            db.execSQL("" +
-                    "UPDATE setting " +
-                    "SET value='-' " +
-                    "WHERE name='id'");
+//            db.execSQL("" +
+//                    "UPDATE setting " +
+//                    "SET value='-' " +
+//                    "WHERE name='id'");
         }
         else {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);

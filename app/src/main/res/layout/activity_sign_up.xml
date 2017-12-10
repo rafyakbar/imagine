@@ -27,12 +27,13 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:text="Nama"
+                android:text="Name"
                 android:textSize="18sp"
                 android:gravity="right|center"
                 android:layout_marginRight="8dp"/>
 
             <EditText
+                android:id="@+id/signupactivity_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -53,6 +54,7 @@
                 android:layout_marginRight="8dp"/>
 
             <EditText
+                android:id="@+id/signupactivity_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -73,6 +75,7 @@
                 android:layout_marginRight="8dp"/>
 
             <EditText
+                android:id="@+id/signupactivity_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>

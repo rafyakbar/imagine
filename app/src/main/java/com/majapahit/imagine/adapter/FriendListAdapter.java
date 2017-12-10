@@ -1,4 +1,4 @@
-package com.majapahit.imagine.util;
+package com.majapahit.imagine.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
