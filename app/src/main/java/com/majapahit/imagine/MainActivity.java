@@ -70,13 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         dataHelper = new DataHelper(getApplicationContext());
         db = dataHelper.getReadableDatabase();
-//        initializeView();
+
         if (SettingModel.checkLoginOrRegister(db)){
             initializeView();
-//            db.execSQL("" +
-//                    "UPDATE setting " +
-//                    "SET value='-' " +
-//                    "WHERE name='id'");
         }
         else {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);

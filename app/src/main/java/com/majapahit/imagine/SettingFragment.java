@@ -185,7 +185,16 @@ public class SettingFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SettingModel.update(db, "id", "-");
+                SettingModel.update(db, "name", "-");
+                SettingModel.update(db, "email", "-");
+                SettingModel.update(db, "location", "-");
+                SettingModel.update(db, "about", "-");
+                SettingModel.update(db, "dir", "-");
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -208,6 +217,7 @@ public class SettingFragment extends Fragment {
             params.add(email.getText().toString().trim());
             params.add(location.getText().toString().trim());
             params.add(about.getText().toString().trim());
+            params.add(SettingModel.getUserData(db).get("dir").replace("/", "="));
         } else {
             params.add(oldPassword.getText().toString());
             params.add(newPassword.getText().toString());
@@ -318,6 +328,7 @@ public class SettingFragment extends Fragment {
                             progressDialog.dismiss();
                             Toast.makeText(getContext(), "Picture has been uploaded!", Toast.LENGTH_LONG).show();
                             SettingModel.update(db, "dir", file);
+                            save(true);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

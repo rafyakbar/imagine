@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -149,6 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     try {
                         JSONObject jsonObject = new JSONObject(result[0]);
+                        SettingModel.update(db, "id", jsonObject.getString("id"));
                         SettingModel.update(db, "name", jsonObject.getString("name"));
                         SettingModel.update(db, "email", jsonObject.getString("email"));
                         SettingModel.update(db, "location", jsonObject.getString("location"));
