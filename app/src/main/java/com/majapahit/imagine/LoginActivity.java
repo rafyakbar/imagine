@@ -22,11 +22,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.majapahit.imagine.url.Server;
 import com.majapahit.imagine.util.DataHelper;
+import com.majapahit.imagine.util.SettingModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
@@ -86,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logginIn(){
         ArrayList<String> params = new ArrayList<>();
-        params.add(email.getText().toString());
+        params.add(email.getText().toString().trim());
         params.add(password.getText().toString());
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -97,7 +100,12 @@ public class LoginActivity extends AppCompatActivity {
         String url = Server.SIGNIN_URL;
         for (String v :
                 params) {
-            url += v.replace(" ", "+") + "/";
+            v = v.replace(" ", "=+-+=");
+            try {
+                url += URLEncoder.encode(v, "UTF-8") + "/";
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
         Log.d("url", url);
 
@@ -141,26 +149,11 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     try {
                         JSONObject jsonObject = new JSONObject(result[0]);
-                        db.execSQL("" +
-                                "UPDATE setting " +
-                                "SET value='"+jsonObject.getString("id")+"' " +
-                                "WHERE name='id'");
-                        db.execSQL("" +
-                                "UPDATE setting " +
-                                "SET value='"+jsonObject.getString("name")+"' " +
-                                "WHERE name='name'");
-                        db.execSQL("" +
-                                "UPDATE setting " +
-                                "SET value='"+jsonObject.getString("email")+"' " +
-                                "WHERE name='email'");
-                        db.execSQL("" +
-                                "UPDATE setting " +
-                                "SET value='"+jsonObject.getString("location")+"' " +
-                                "WHERE name='location'");
-                        db.execSQL("" +
-                                "UPDATE setting " +
-                                "SET value='"+jsonObject.getString("about")+"' " +
-                                "WHERE name='about'");
+                        SettingModel.update(db, "name", jsonObject.getString("name"));
+                        SettingModel.update(db, "email", jsonObject.getString("email"));
+                        SettingModel.update(db, "location", jsonObject.getString("location"));
+                        SettingModel.update(db, "about", jsonObject.getString("about"));
+                        SettingModel.update(db, "dir", jsonObject.getString("dir"));
                         openMainActivity();
                     } catch (JSONException e) {
                         e.printStackTrace();

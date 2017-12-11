@@ -28,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -93,7 +95,12 @@ public class SignUpActivity extends AppCompatActivity {
         String url = Server.SIGNUP_URL;
         for (String v :
                 params) {
-            url += v.replace(" ", "+") + "/";
+            try {
+                v = v.replace(" ", "=+-+=");
+                url += URLEncoder.encode(v, "UTF-8") + "/";
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
         Log.d("url", url);
 
