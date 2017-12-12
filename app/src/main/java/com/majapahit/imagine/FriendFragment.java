@@ -1,19 +1,41 @@
 package com.majapahit.imagine;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.majapahit.imagine.adapter.FriendListAdapter;
+import com.majapahit.imagine.url.Server;
+import com.majapahit.imagine.util.DataHelper;
+import com.majapahit.imagine.util.SettingModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -36,7 +58,14 @@ public class FriendFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    DataHelper dataHelper;
+    SQLiteDatabase db;
+
     private View view;
+    private ListView listView;
+    private Button followingButton, followerButton;
+    private FriendListAdapter followingListAdapter, followerListAdapter;
+    private JSONArray followingList, followerList;
 
     public FriendFragment() {
         // Required empty public constructor
@@ -75,35 +104,124 @@ public class FriendFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_friend, container, false);
 
-        FriendListAdapter friendListAdapter = new FriendListAdapter(getActivity(), getImage(), getName(), getAbout());
-        ListView listView = view.findViewById(R.id.friend_listview);
-        listView.setAdapter(friendListAdapter);
+        dataHelper = new DataHelper(getContext());
+        db = dataHelper.getReadableDatabase();
 
+        listView = view.findViewById(R.id.friend_listview);
+        followerButton = view.findViewById(R.id.friendfragment_follower);
+        followingButton = view.findViewById(R.id.friendfragment_following);
+
+        followerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.setAdapter(followerListAdapter);
+            }
+        });
+        followingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.setAdapter(followingListAdapter);
+            }
+        });
+
+        setAdapter(true);
+        setAdapter(false);
         return view;
     }
 
-    private ArrayList<String> getName(){
+    private void setAdapter(final boolean following){
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = ((following) ? Server.FOLLOWINGLIST_URL : Server.FOLLOWERLIST_URL) + SettingModel.getUserData(db).get("id");
+        Log.d("url", url);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("RESPONSE", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (following){
+                                followingList = jsonObject.getJSONArray("list");
+                                HashMap<String, ArrayList<String>> hashMap = getNameAbout(following);
+                                followingListAdapter = new FriendListAdapter(getActivity(), getImage(following), hashMap.get("name"), hashMap.get("about"));
+                                listView.setAdapter(followerListAdapter);
+                            }
+                            else{
+                                followerList = jsonObject.getJSONArray("list");
+                                HashMap<String, ArrayList<String>> hashMap = getNameAbout(following);
+                                followerListAdapter = new FriendListAdapter(getActivity(), getImage(following), hashMap.get("name"), hashMap.get("about"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("message", "Error: " + error.getMessage());
+                Log.d("message", "Failed with error msg:\t" + error.getMessage());
+                Log.d("message", "Error StackTrace: \t" + error.getStackTrace());
+                try {
+                    byte[] htmlBodyBytes = error.networkResponse.data;
+                    Log.e("message", new String(htmlBodyBytes), error);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        queue.add(stringRequest);
+    }
+
+    private HashMap<String, ArrayList<String>> getNameAbout(boolean following){
+        HashMap<String, ArrayList<String>> hashMap = new HashMap<>();
         ArrayList<String> nameList = new ArrayList<>();
-        for (int c = 1; c <= 25; c++){
-            nameList.add("Nama Pengguna " + c);
-        }
-
-        return nameList;
-    }
-
-    private ArrayList<String> getAbout(){
         ArrayList<String> aboutList = new ArrayList<>();
-        for (int c = 1; c <= 25; c++){
-            aboutList.add("Ini adalah deskripsi pengguna ke- " + c);
+        if (following){
+            for (int c = 0; c < followingList.length(); c++){
+                try {
+                    nameList.add(followingList.getJSONObject(c).getString("name"));
+                    aboutList.add(followingList.getJSONObject(c).getString("about"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        else {
+            for (int c = 0; c < followerList.length(); c++){
+                try {
+                    nameList.add(followerList.getJSONObject(c).getString("name"));
+                    aboutList.add(followerList.getJSONObject(c).getString("about"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        hashMap.put("name", nameList);
+        hashMap.put("about", aboutList);
 
-        return aboutList;
+        return hashMap;
     }
 
-    private ArrayList<StorageReference> getImage(){
+    private ArrayList<StorageReference> getImage(boolean following){
         final ArrayList<StorageReference> imageList = new ArrayList<>();
-        for (int c = 1; c <= 25; c++){
-             imageList.add(FirebaseStorage.getInstance().getReference().child("images/pic.jpg"));
+        if (following){
+            for (int c = 0; c < followingList.length(); c++){
+                try {
+                    imageList.add(FirebaseStorage.getInstance().getReference().child(followingList.getJSONObject(c).getString("dir")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else {
+            for (int c = 0; c < followerList.length(); c++){
+                try {
+                    imageList.add(FirebaseStorage.getInstance().getReference().child(followerList.getJSONObject(c).getString("dir")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return imageList;

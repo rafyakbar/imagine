@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -117,7 +118,6 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         view = inflater.inflate(R.layout.fragment_setting, container, false);
 
         dataHelper = new DataHelper(getContext());
@@ -239,7 +239,6 @@ public class SettingFragment extends Fragment {
         }
         Log.d("url", url);
 
-        // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -264,7 +263,6 @@ public class SettingFragment extends Fragment {
                 progressDialog.dismiss();
             }
         });
-        // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
         progressDialog.setMessage("Updating data...");
@@ -341,15 +339,11 @@ public class SettingFragment extends Fragment {
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            //calculating progress percentage
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-                            //displaying percentage in progress dialog
                             progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
                         }
                     });
         }
-        //if there is not any file
         else {
             Toast.makeText(getContext(), "Choose your picture first!", Toast.LENGTH_SHORT);
         }

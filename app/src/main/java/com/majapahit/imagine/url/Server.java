@@ -13,5 +13,9 @@ public class Server {
 
     public static final String UPDATEGENERAL_URL = "http://imaginesystem.herokuapp.com/update/general/";
 
-    public  static final String UPDATEPASSWORD_URL = "http://imaginesystem.herokuapp.com/update/password/";
+    public static final String UPDATEPASSWORD_URL = "http://imaginesystem.herokuapp.com/update/password/";
+
+    public static final String FOLLOWINGLIST_URL = "http://imaginesystem.herokuapp.com/followinglist/";
+
+    public static final String FOLLOWERLIST_URL = "http://imaginesystem.herokuapp.com/followerlist/";
 }

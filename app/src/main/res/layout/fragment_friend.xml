@@ -7,11 +7,42 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <ListView
-        android:id="@+id/friend_listview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/friendfragment_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_style"
+                android:text="Following" />
+
+            <Button
+                android:id="@+id/friendfragment_follower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_style"
+                android:text="Follower" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/friend_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
 
 </FrameLayout>
