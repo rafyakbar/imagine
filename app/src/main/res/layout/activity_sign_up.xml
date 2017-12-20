@@ -6,31 +6,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/gradient"
         android:orientation="vertical"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="20dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
 
         <ImageView
             android:id="@+id/signupactivity_logo_imageview"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:text="Name"
-                android:textSize="18sp"
+                android:layout_marginRight="8dp"
                 android:gravity="right|center"
-                android:layout_marginRight="8dp"/>
+                android:text="Name"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/signupactivity_name"
@@ -42,16 +43,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:text="Email"
-                android:textSize="18sp"
+                android:layout_marginRight="8dp"
                 android:gravity="right|center"
-                android:layout_marginRight="8dp"/>
+                android:text="Email"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/signupactivity_email"
@@ -63,22 +64,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:text="Password"
-                android:textSize="18sp"
+                android:layout_marginRight="8dp"
                 android:gravity="right|center"
-                android:layout_marginRight="8dp"/>
+                android:text="Password"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/signupactivity_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
 
         </LinearLayout>
 
@@ -86,20 +87,22 @@
             android:id="@+id/signupactivity_signup_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
             android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/button_style"
-            android:layout_marginBottom="15dp"/>
+            android:text="Sign Up"
+            android:textColor="@color/cardview_light_background" />
 
         <Button
             android:id="@+id/signupactivity_login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Already have an account? Click me!"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:background="@drawable/button_style"
             android:layout_marginBottom="15dp"
-            android:paddingRight="0dp"/>
+            android:background="@drawable/button_style"
+            android:paddingRight="0dp"
+            android:text="Already have an account? Click me!"
+            android:textColor="@color/cardview_light_background" />
 
     </LinearLayout>
 

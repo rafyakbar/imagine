@@ -23,17 +23,21 @@
                 android:id="@+id/friendfragment_following"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_style"
-                android:text="Following" />
+                android:text="Following"
+                android:textColor="@color/cardview_light_background" />
 
             <Button
                 android:id="@+id/friendfragment_follower"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_style"
-                android:text="Follower" />
+                android:text="Follower"
+                android:textColor="@color/cardview_light_background" />
 
         </LinearLayout>
 
