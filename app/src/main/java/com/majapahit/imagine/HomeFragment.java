@@ -1,20 +1,41 @@
 package com.majapahit.imagine;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.majapahit.imagine.url.Server;
+import com.majapahit.imagine.util.DataHelper;
+import com.majapahit.imagine.util.SettingModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -40,6 +61,8 @@ public class HomeFragment extends Fragment {
 
     private View view;
     private Random random = new Random();
+    DataHelper dataHelper;
+    SQLiteDatabase db;
 
     private LinearLayout leftLayout;
     private LinearLayout rightLayout;
@@ -83,9 +106,66 @@ public class HomeFragment extends Fragment {
         leftLayout = view.findViewById(R.id.layout_left);
         rightLayout = view.findViewById(R.id.layout_right);
 
-        fakerCardView(20);
+        dataHelper = new DataHelper(getContext());
+        db = dataHelper.getReadableDatabase();
+
+        //fakerCardView(20);
+        getData();
 
         return view;
+    }
+
+    private void getData(){
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Server.FOLLOWINGPOSTLIST_URL + SettingModel.getUserData(db).get("id"),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("RESPONSE", response);
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            for (int c = 0; c < jsonArray.length(); c++) {
+                                ImageView imageView = new ImageView(getContext());
+                                imageView.setVisibility(View.VISIBLE);
+                                Glide.with(getContext()).using(new FirebaseImageLoader()).load(FirebaseStorage.getInstance().getReference().child(jsonArray.getJSONObject(c).getString("dir"))).into(imageView);
+
+//                                LinearLayout linearLayout = new LinearLayout(getContext());
+//                                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                                if (c % 2 == 0){
+                                    layoutParams.setMargins(20, 20, 10, 0);
+                                    imageView.setLayoutParams(layoutParams);
+                                    leftLayout.addView(imageView);
+                                }
+                                else {
+                                    layoutParams.setMargins(10, 20, 20, 0);
+                                    imageView.setLayoutParams(layoutParams);
+                                    rightLayout.addView(imageView);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("message", "Error: " + error.getMessage());
+                Log.d("message", "Failed with error msg:\t" + error.getMessage());
+                Log.d("message", "Error StackTrace: \t" + error.getStackTrace());
+                try {
+                    byte[] htmlBodyBytes = error.networkResponse.data;
+                    Log.e("message", new String(htmlBodyBytes), error);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     public void fakerCardView(int count){

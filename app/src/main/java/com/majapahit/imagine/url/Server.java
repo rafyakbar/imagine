@@ -22,4 +22,6 @@ public class Server {
     public static final String POSTIDEA_URL = "http://imaginesystem.herokuapp.com/post/";
 
     public static final String GETTAG_URL = "http://imaginesystem.herokuapp.com/tag/";
+
+    public static final String FOLLOWINGPOSTLIST_URL = "http://imaginesystem.herokuapp.com/post/";
 }
