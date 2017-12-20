@@ -18,4 +18,8 @@ public class Server {
     public static final String FOLLOWINGLIST_URL = "http://imaginesystem.herokuapp.com/followinglist/";
 
     public static final String FOLLOWERLIST_URL = "http://imaginesystem.herokuapp.com/followerlist/";
+
+    public static final String POSTIDEA_URL = "http://imaginesystem.herokuapp.com/post/";
+
+    public static final String GETTAG_URL = "http://imaginesystem.herokuapp.com/tag/";
 }

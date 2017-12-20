@@ -1,16 +1,35 @@
 package com.majapahit.imagine;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.majapahit.imagine.url.Server;
+import com.majapahit.imagine.util.SettingModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -87,6 +106,48 @@ public class SearchFragment extends Fragment {
     }
 
     private void getData(){
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Server.GETTAG_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("RESPONSE", response);
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            tags = new ArrayList<>();
+                            for (int c = 0; c < jsonArray.length(); c++) {
+                                String name = jsonArray.getJSONObject(c).getString("name");
+                                String views = jsonArray.getJSONObject(c).getString("views");
+                                String ket = (views.equals("0") || views.equals("1")) ? "view" : "views";
+                                tags.add("#" + name + " (" + views + " " + ket + ")");
+                            }
+                            adapter = new ArrayAdapter<>(getActivity(), R.layout.list_tag, R.id.name, tags);
+                            listView.setAdapter(adapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("message", "Error: " + error.getMessage());
+                Log.d("message", "Failed with error msg:\t" + error.getMessage());
+                Log.d("message", "Error StackTrace: \t" + error.getStackTrace());
+                try {
+                    byte[] htmlBodyBytes = error.networkResponse.data;
+                    Log.e("message", new String(htmlBodyBytes), error);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    private void getData1(){
         String[] locales = Locale.getISOCountries();
         tags = new ArrayList<>();
 
