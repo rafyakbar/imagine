@@ -68,6 +68,7 @@ public class FriendFragment extends Fragment {
     private Button followingButton, followerButton;
     private FriendListAdapter followingListAdapter, followerListAdapter;
     private JSONArray followingList, followerList;
+    private boolean followerClicked = true;
 
     public FriendFragment() {
         // Required empty public constructor
@@ -114,7 +115,7 @@ public class FriendFragment extends Fragment {
         followingButton = view.findViewById(R.id.friendfragment_following);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 final CharSequence[] dialogitem = {"Lihat profil", "Hapus"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
@@ -122,6 +123,32 @@ public class FriendFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case 0:
+                                Bundle bundle = new Bundle();
+                                if (followerClicked){
+                                    try {
+                                        bundle.putCharSequence("name", followerList.getJSONObject(position).getString("name"));
+                                        bundle.putCharSequence("dir", followerList.getJSONObject(position).getString("dir"));
+                                        bundle.putCharSequence("email", followerList.getJSONObject(position).getString("email"));
+                                        bundle.putCharSequence("about", followerList.getJSONObject(position).getString("about"));
+                                        bundle.putCharSequence("location", followerList.getJSONObject(position).getString("location"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                else {
+                                    try {
+                                        bundle.putCharSequence("name", followingList.getJSONObject(position).getString("name"));
+                                        bundle.putCharSequence("dir", followingList.getJSONObject(position).getString("dir"));
+                                        bundle.putCharSequence("email", followingList.getJSONObject(position).getString("email"));
+                                        bundle.putCharSequence("about", followingList.getJSONObject(position).getString("about"));
+                                        bundle.putCharSequence("location", followingList.getJSONObject(position).getString("location"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                FriendDetailFragment friendDetailFragment = new FriendDetailFragment();
+                                friendDetailFragment.setArguments(bundle);
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout, friendDetailFragment).commit();
                                 break;
                             case 1:
                                 break;
@@ -136,12 +163,14 @@ public class FriendFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 listView.setAdapter(followerListAdapter);
+                followerClicked = true;
             }
         });
         followingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listView.setAdapter(followingListAdapter);
+                followerClicked = false;
             }
         });
 

@@ -7,6 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.HashMap;
 
 
 /**
@@ -28,6 +36,10 @@ public class FriendDetailFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private View view;
+    private ImageView image;
+    private TextView name, email, location, about;
 
     public FriendDetailFragment() {
         // Required empty public constructor
@@ -64,7 +76,24 @@ public class FriendDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friend_detail, container, false);
+        view = inflater.inflate(R.layout.fragment_friend_detail, container, false);
+        image = view.findViewById(R.id.frienddetailfragment_image);
+        name = view.findViewById(R.id.frienddetailfragment_name);
+        email = view.findViewById(R.id.frienddetailfragment_email);
+        location = view.findViewById(R.id.frienddetailfragment_location);
+        about = view.findViewById(R.id.frienddetailfragment_bio);
+
+        if (getArguments() != null){
+            name.setText(getArguments().getCharSequence("name"));
+            email.setText(getArguments().getCharSequence("email"));
+            location.setText(getArguments().getCharSequence("location"));
+            about.setText(getArguments().getCharSequence("about"));
+            Glide.with(getContext())
+                    .using(new FirebaseImageLoader())
+                    .load(FirebaseStorage.getInstance().getReference().child(getArguments().getCharSequence("dir").toString())).into(image);
+        }
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
