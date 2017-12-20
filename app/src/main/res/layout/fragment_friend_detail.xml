@@ -5,82 +5,88 @@
     tools:context="com.majapahit.imagine.FriendDetailFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/frienddetailfragment_name"
+                    android:layout_width="177dp"
+                    android:layout_height="150dp"
+                    android:text="Rafy Aulia Akbar"
+                    android:textSize="30dp"
+                    android:gravity="center"
+                    android:paddingRight="10dp"/>
+
+                <ImageView
+                    android:id="@+id/frienddetailfragment_image"
+                    android:layout_width="174dp"
+                    android:layout_height="148dp"
+                    android:contentDescription=""/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/frienddetailfragment_name"
-                android:layout_width="177dp"
-                android:layout_height="150dp"
-                android:text="Rafy Aulia Akbar"
-                android:textSize="30dp"
-                android:gravity="center_vertical|right"
-                android:paddingRight="10dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginBottom="2dp"/>
 
-            <ImageView
-                android:id="@+id/frienddetailfragment_image"
-                android:layout_width="174dp"
-                android:layout_height="148dp"
-                android:contentDescription=""/>
+            <TextView
+                android:id="@+id/frienddetailfragment_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="isi email"
+                android:textSize="18dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/frienddetailfragment_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="isi location"
+                android:textSize="18dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bio"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/frienddetailfragment_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="isi bio"
+                android:textSize="18dp"
+                android:layout_marginBottom="5dp"/>
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_marginBottom="5dp"/>
-
-        <TextView
-            android:id="@+id/frienddetailfragment_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="isi email"
-            android:textSize="18dp"
-            android:layout_marginBottom="5dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_marginBottom="5dp"/>
-
-        <TextView
-            android:id="@+id/frienddetailfragment_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="isi location"
-            android:textSize="18dp"
-            android:layout_marginBottom="5dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bio"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_marginBottom="5dp"/>
-
-        <TextView
-            android:id="@+id/frienddetailfragment_bio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="isi bio"
-            android:textSize="18dp"
-            android:layout_marginBottom="5dp"/>
-        
-    </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
