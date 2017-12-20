@@ -1,5 +1,6 @@
 package com.majapahit.imagine;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -110,6 +112,25 @@ public class FriendFragment extends Fragment {
         listView = view.findViewById(R.id.friend_listview);
         followerButton = view.findViewById(R.id.friendfragment_follower);
         followingButton = view.findViewById(R.id.friendfragment_following);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final CharSequence[] dialogitem = {"Lihat profil", "Hapus"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+                                break;
+                            case 1:
+                                break;
+                        }
+                    }
+                });
+                builder.create().show();
+            }
+        });
 
         followerButton.setOnClickListener(new View.OnClickListener() {
             @Override
