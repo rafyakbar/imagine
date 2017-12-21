@@ -53,9 +53,9 @@ public class SignUpActivity extends AppCompatActivity {
         email = findViewById(R.id.signupactivity_email);
         password = findViewById(R.id.signupactivity_password);
 
-        name.setText("Rafy Aulia Akbar");
-        email.setText("rafy683@gmail.com");
-        password.setText("secret");
+        //name.setText("Rafy Aulia Akbar");
+        //email.setText("rafy683@gmail.com");
+        //password.setText("secret");
 
         dataHelper = new DataHelper(getApplicationContext());
         db = dataHelper.getReadableDatabase();

@@ -57,8 +57,8 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.loginactivity_email);
         password = findViewById(R.id.loginactivity_password);
 
-        email.setText("rafy683@gmail.com");
-        password.setText("secret");
+        //email.setText("rafy683@gmail.com");
+        //password.setText("secret");
 
         try {
             logoImage.setImageBitmap(BitmapFactory.decodeStream(getAssets().open("imagine.png")));
