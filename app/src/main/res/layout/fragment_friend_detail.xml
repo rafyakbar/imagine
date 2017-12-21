@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,83 +8,123 @@
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/ic_launcher_background">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:layout_height="200dp"
+            android:background="@color/ic_launcher_background"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="172dp"
+                android:background="@drawable/gradient"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/frienddetailfragment_name"
-                    android:layout_width="177dp"
-                    android:layout_height="150dp"
-                    android:text="Rafy Aulia Akbar"
-                    android:textSize="30dp"
+                    style="@android:style/Widget.DeviceDefault.TextView"
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="cursive"
                     android:gravity="center"
-                    android:paddingRight="10dp"/>
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Rafy Aulia Akbar"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="30dp" />
 
                 <ImageView
                     android:id="@+id/frienddetailfragment_image"
-                    android:layout_width="174dp"
-                    android:layout_height="148dp"
-                    android:contentDescription=""/>
+                    android:layout_width="94dp"
+                    android:layout_height="118dp"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginTop="30dp"
+                    android:contentDescription="" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="ACCOUNT"
+                android:textAlignment="center"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/cardview_shadow_start_color"
+                android:fontFamily="monospace"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
                 android:text="Email"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:layout_marginBottom="2dp"/>
+                android:textColor="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/frienddetailfragment_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:background="?attr/colorButtonNormal"
+                android:fontFamily="serif"
+                android:paddingLeft="5dp"
                 android:text="isi email"
-                android:textSize="18dp"
-                android:layout_marginBottom="5dp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:background="@color/cardview_shadow_start_color"
+                android:fontFamily="monospace"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
                 android:text="Location"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:layout_marginBottom="2dp"/>
+                android:textColor="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/frienddetailfragment_location"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:background="?attr/colorButtonNormal"
+                android:fontFamily="serif"
+                android:paddingLeft="5dp"
                 android:text="isi location"
-                android:textSize="18dp"
-                android:layout_marginBottom="5dp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:background="@color/cardview_shadow_start_color"
+                android:fontFamily="monospace"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
                 android:text="Bio"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:layout_marginBottom="2dp"/>
+                android:textColor="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/frienddetailfragment_bio"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:background="?attr/colorButtonNormal"
+                android:fontFamily="serif"
+                android:paddingLeft="5dp"
                 android:text="isi bio"
-                android:textSize="18dp"
-                android:layout_marginBottom="5dp"/>
+                android:textSize="18dp" />
 
         </LinearLayout>
 
